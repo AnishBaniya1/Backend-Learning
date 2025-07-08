@@ -12,3 +12,4 @@ E:\Backend Class\C#\helloworld\obj\Debug\net9.0\refint\helloworld.dll
 E:\Backend Class\C#\helloworld\obj\Debug\net9.0\helloworld.pdb
 E:\Backend Class\C#\helloworld\obj\Debug\net9.0\helloworld.genruntimeconfig.cache
 E:\Backend Class\C#\helloworld\obj\Debug\net9.0\ref\helloworld.dll
+E:\Backend Class\C#\helloworld\obj\Debug\net9.0\helloworld.sourcelink.json
