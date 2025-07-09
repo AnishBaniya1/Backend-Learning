@@ -1,0 +1,15 @@
+E:\Backend Class\C#\loops\bin\Debug\net9.0\loops.exe
+E:\Backend Class\C#\loops\bin\Debug\net9.0\loops.deps.json
+E:\Backend Class\C#\loops\bin\Debug\net9.0\loops.runtimeconfig.json
+E:\Backend Class\C#\loops\bin\Debug\net9.0\loops.dll
+E:\Backend Class\C#\loops\bin\Debug\net9.0\loops.pdb
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.GeneratedMSBuildEditorConfig.editorconfig
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.AssemblyInfoInputs.cache
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.AssemblyInfo.cs
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.csproj.CoreCompileInputs.cache
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.sourcelink.json
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.dll
+E:\Backend Class\C#\loops\obj\Debug\net9.0\refint\loops.dll
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.pdb
+E:\Backend Class\C#\loops\obj\Debug\net9.0\loops.genruntimeconfig.cache
+E:\Backend Class\C#\loops\obj\Debug\net9.0\ref\loops.dll
