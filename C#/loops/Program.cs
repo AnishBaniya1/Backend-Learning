@@ -14,3 +14,23 @@ else
 {
     Console.WriteLine("Answer is less than 10.");
 }
+
+//while loop
+int counter = 10;
+// while (counter < 5)
+// {
+//     Console.WriteLine(counter);
+//     counter++;
+// }
+do
+{
+    Console.WriteLine(counter);
+    counter++;
+} while (counter < 5);
+
+//for loop
+
+for (int i = 0; i <= 5; i++)
+{
+    Console.WriteLine(i);
+}
