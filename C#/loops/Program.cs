@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 //if condition
+using System.ComponentModel;
+
 int a = 5;
 int b = 4;
 // if (a + b > 10)
@@ -34,3 +36,13 @@ for (int i = 0; i <= 5; i++)
 {
     Console.WriteLine(i);
 }
+
+//list<T>
+var names = new List<string> { "Scott", "Ana", "David" };
+names.Add("Ravi");
+names.Remove("Ana");
+// foreach (var name in names)
+// {
+//     Console.WriteLine($"Hello {name.ToUpper()}");
+// }
+Console.WriteLine(names[2]);
