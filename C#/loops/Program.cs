@@ -39,10 +39,10 @@ for (int i = 0; i <= 5; i++)
 
 //list<T>
 var names = new List<string> { "Scott", "Ana", "David" };
-names.Add("Ravi");
-names.Remove("Ana");
-// foreach (var name in names)
-// {
-//     Console.WriteLine($"Hello {name.ToUpper()}");
-// }
+names.Sort();
+
+foreach (var name in names)
+{
+    Console.WriteLine($"Hello {name}");
+}
 Console.WriteLine(names[2]);
