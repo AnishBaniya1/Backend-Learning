@@ -1,0 +1,15 @@
+E:\Backend Class\C#\linq\bin\Debug\net9.0\linq.exe
+E:\Backend Class\C#\linq\bin\Debug\net9.0\linq.deps.json
+E:\Backend Class\C#\linq\bin\Debug\net9.0\linq.runtimeconfig.json
+E:\Backend Class\C#\linq\bin\Debug\net9.0\linq.dll
+E:\Backend Class\C#\linq\bin\Debug\net9.0\linq.pdb
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.GeneratedMSBuildEditorConfig.editorconfig
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.AssemblyInfoInputs.cache
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.AssemblyInfo.cs
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.csproj.CoreCompileInputs.cache
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.sourcelink.json
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.dll
+E:\Backend Class\C#\linq\obj\Debug\net9.0\refint\linq.dll
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.pdb
+E:\Backend Class\C#\linq\obj\Debug\net9.0\linq.genruntimeconfig.cache
+E:\Backend Class\C#\linq\obj\Debug\net9.0\ref\linq.dll
