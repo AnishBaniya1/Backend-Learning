@@ -2,7 +2,11 @@
 List<int> scores = [97, 92, 81, 60];
 
 IEnumerable<int> scoreQuery =
-from score in scores where score > 80 select score;
+from score in scores
+where score > 80
+//for sorting you can use same wasy as sql
+orderby score ascending
+select score;
 
 foreach (int i in scoreQuery)
 {
