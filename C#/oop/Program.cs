@@ -6,6 +6,7 @@ List<Person> people = [p1, p2];
 
 p1.Pets.Add(new Dog("Burno"));
 p2.Pets.Add(new Cat("Jackey"));
+p2.Pets.Add(new Dog("Kaley"));
 foreach (var person in people)
 {
     Console.WriteLine($"{person}");
@@ -14,7 +15,15 @@ foreach (var person in people)
         Console.WriteLine($"{pet}");
     }
 }
+var dogOwners = from person in people where person.Pets.Any(pet => pet is Dog) select person;
+Console.WriteLine("People who have dog:");
+foreach (var person in dogOwners)
+{
+    Console.WriteLine($"{person.Fname}");
+}
+
 Console.WriteLine($"The name is {p1.Fname} ");
+
 Console.WriteLine(people.Count);
 public class Person(string Name)
 {
