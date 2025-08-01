@@ -1,0 +1,15 @@
+E:\Backend Class\C#\oop\bin\Debug\net9.0\oop.exe
+E:\Backend Class\C#\oop\bin\Debug\net9.0\oop.deps.json
+E:\Backend Class\C#\oop\bin\Debug\net9.0\oop.runtimeconfig.json
+E:\Backend Class\C#\oop\bin\Debug\net9.0\oop.dll
+E:\Backend Class\C#\oop\bin\Debug\net9.0\oop.pdb
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.GeneratedMSBuildEditorConfig.editorconfig
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.AssemblyInfoInputs.cache
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.AssemblyInfo.cs
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.csproj.CoreCompileInputs.cache
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.sourcelink.json
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.dll
+E:\Backend Class\C#\oop\obj\Debug\net9.0\refint\oop.dll
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.pdb
+E:\Backend Class\C#\oop\obj\Debug\net9.0\oop.genruntimeconfig.cache
+E:\Backend Class\C#\oop\obj\Debug\net9.0\ref\oop.dll
