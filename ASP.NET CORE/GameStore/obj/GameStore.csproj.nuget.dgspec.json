@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj": {}
+    "E:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj": {}
   },
   "projects": {
-    "e:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj": {
+    "E:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj",
+        "projectUniqueName": "E:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj",
         "projectName": "GameStore",
-        "projectPath": "e:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj",
+        "projectPath": "E:\\Backend Class\\ASP.NET CORE\\GameStore\\GameStore.csproj",
         "packagesPath": "C:\\Users\\Aashi\\.nuget\\packages\\",
-        "outputPath": "e:\\Backend Class\\ASP.NET CORE\\GameStore\\obj\\",
+        "outputPath": "E:\\Backend Class\\ASP.NET CORE\\GameStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
