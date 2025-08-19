@@ -17,6 +17,11 @@ public class HomeController : Controller
     {
         return View();
     }
+    //creating a new action
+    public IActionResult MyPage()
+    {
+        return View();
+    }
 
     public IActionResult Privacy()
     {
