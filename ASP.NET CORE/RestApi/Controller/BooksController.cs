@@ -44,5 +44,15 @@ namespace RestApi.Controller
             }
             return Ok(book);
         }
+        [HttpPost]
+        public ActionResult<Book> AddBook(Book newBook)
+        {
+            if (newBook == null)
+            {
+                return BadRequest();
+            }
+            books.Add(newBook);
+            return CreatedAtAction(nameof(GetBooks), new { id = newBook.Id }, newBook);
+        }
     }
 }
