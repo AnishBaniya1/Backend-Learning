@@ -85,7 +85,7 @@ public class ApplicationDbContext : DbContext
             new ProductIngredient { ProductId = 1, IngredientId = 1 },
             new ProductIngredient { ProductId = 1, IngredientId = 4 },
             new ProductIngredient { ProductId = 1, IngredientId = 5 },
-            new ProductIngredient { ProductId = 2, IngredientId = 6 },
+            new ProductIngredient { ProductId = 1, IngredientId = 6 },
             new ProductIngredient { ProductId = 2, IngredientId = 2 },
             new ProductIngredient { ProductId = 2, IngredientId = 4 },
             new ProductIngredient { ProductId = 2, IngredientId = 5 },
