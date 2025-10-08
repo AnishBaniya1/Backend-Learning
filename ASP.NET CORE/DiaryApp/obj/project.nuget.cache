@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tH+cubqrwk8=",
+  "dgSpecHash": "lEtecSlS+3Y=",
   "success": true,
-  "projectFilePath": "e:\\Backend Class\\ASP.NET CORE\\DiaryApp\\DiaryApp.csproj",
+  "projectFilePath": "E:\\Backend Class\\ASP.NET CORE\\DiaryApp\\DiaryApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aashi\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Aashi\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
