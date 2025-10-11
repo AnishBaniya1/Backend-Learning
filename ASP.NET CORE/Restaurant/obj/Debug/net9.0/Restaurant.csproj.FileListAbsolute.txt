@@ -158,7 +158,6 @@ e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\rjsmcshtml.dswa.cache.
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\scopedcss\bundle\Restaurant.styles.css
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\scopedcss\projectbundle\Restaurant.bundle.scp.css
-e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\compressed\hjdexntxma-b9sayid5wm.gz
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\compressed\64ucft7kkg-61n19gt1b8.gz
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\compressed\munafh6o8s-xtxxf3hu2r.gz
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\compressed\d88noqxycz-bqjiyaj88i.gz
@@ -232,3 +231,4 @@ e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\refint\Restaurant.dll
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\Restaurant.pdb
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\Restaurant.genruntimeconfig.cache
 e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\ref\Restaurant.dll
+e:\Backend Class\ASP.NET CORE\Restaurant\obj\Debug\net9.0\compressed\hjdexntxma-p3co16o3ms.gz
