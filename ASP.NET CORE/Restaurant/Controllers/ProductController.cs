@@ -9,11 +9,13 @@ namespace Restaurant.Controllers
         private Repository<Product> products;
         private Repository<Ingredient> ingredients;
         private Repository<Category> categories;
-        public ProductController(ApplicationDbContext context)
+        private IWebHostEnvironment _webHostEnvironment;
+        public ProductController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             products = new Repository<Product>(context);
             ingredients = new Repository<Ingredient>(context);
             categories = new Repository<Category>(context);
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: ProductController
@@ -33,8 +35,63 @@ namespace Restaurant.Controllers
             }
             else//That means the user clicked “Edit” for a specific product.
             {
+                Product product = await products.GetByIdAsync(id, new QueryOptions<Product>
+                {
+                    Includes = "ProductIngredients.Ingredient, Category",
+                });
                 ViewBag.Operation = "Edit";
-                return View();
+                return View(product);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEdit(Product product, int[] ingredientIds, int catId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (product.ImageFile != null)
+                {
+                    //This line defines where to save the uploaded image file.
+                    //_webHostEnvironment.WebRootPath gives the path to your wwwroot folder in the project (for example: C:\MyApp\wwwroot).
+                    //Path.Combine(..., "images") adds a subfolder named images inside that folder.
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+
+                    //Creates a unique filename to avoid overwriting existing files.
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + product.ImageFile.FileName;
+
+                    // Builds the full file path like:C:\MyApp\wwwroot\images\a7c1e76b-82e9-44c4-8a6f_photo.png
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // This actually creates and saves the file on disk using a FileStream.
+                    using (var fileStrem = new FileStream(filePath, FileMode.Create))
+                    {
+                        await product.ImageFile.CopyToAsync(fileStrem);
+                    }
+                    // Stores the saved image file name in the database model — so you can later display it using something like:
+                    product.ImageUrl = uniqueFileName;
+                }
+                if (product.ProductId == 0)
+                {
+                    ViewBag.Ingredients = await ingredients.GetAllAsync();
+                    ViewBag.Categories = await categories.GetAllAsync();
+                    product.CategoryId = catId;
+
+                    //add ingredients
+                    foreach (int id in ingredientIds)
+                    {
+                        product.ProductIngredients?.Add(new ProductIngredient { IngredientId = id, ProductId = product.ProductId });
+                    }
+                    await products.AddAsync(product);
+                    return RedirectToAction("Index", "Product");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Product");
+                }
+            }
+            else
+            {
+                return View(product);
             }
         }
 
