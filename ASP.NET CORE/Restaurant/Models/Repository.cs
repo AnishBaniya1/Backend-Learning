@@ -23,14 +23,14 @@ public class Repository<T> : IRepository<T> where T : class
     public async Task AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        await _context!.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        T entity = await _dbSet.FindAsync(id);
-        _dbSet.Remove(entity);
-        await _context.SaveChangesAsync();
+        T? entity = await _dbSet.FindAsync(id);
+        _dbSet.Remove(entity!);
+        await _context!.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
@@ -54,14 +54,14 @@ public class Repository<T> : IRepository<T> where T : class
             query = query.Include(include);
         }
         var key = _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties.FirstOrDefault();
-        string primaryKeyName = key?.Name;
+        string? primaryKeyName = key?.Name;
         return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, primaryKeyName) == id);
 
     }
 
     public async Task UpdateAsync(T entity)
     {
-        _context.Update(entity);
+        _context!.Update(entity);
         await _context.SaveChangesAsync();
     }
 }

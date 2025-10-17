@@ -47,6 +47,8 @@ namespace Restaurant.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEdit(Product product, int[] ingredientIds, int catId)
         {
+            ViewBag.Ingredients = await ingredients.GetAllAsync();
+            ViewBag.Categories = await categories.GetAllAsync();
             if (ModelState.IsValid)
             {
                 if (product.ImageFile != null)
@@ -70,11 +72,11 @@ namespace Restaurant.Controllers
                     // Stores the saved image file name in the database model — so you can later display it using something like:
                     product.ImageUrl = uniqueFileName;
                 }
+                //add product
                 if (product.ProductId == 0)
                 {
-                    ViewBag.Ingredients = await ingredients.GetAllAsync();
-                    ViewBag.Categories = await categories.GetAllAsync();
-                    product.CategoryId = catId;
+
+                    product.CategoryId = catId; //Assigns the chosen category to the product.
 
                     //add ingredients
                     foreach (int id in ingredientIds)
@@ -84,14 +86,63 @@ namespace Restaurant.Controllers
                     await products.AddAsync(product);
                     return RedirectToAction("Index", "Product");
                 }
+                //existing product
                 else
-                {
-                    return RedirectToAction("Index", "Product");
+                {//Fetches the existing product (with its ingredients) from the database.
+                    var existingProduct = await products.GetByIdAsync(product.ProductId, new QueryOptions<Product>
+                    {
+                        Includes = "ProductIngredients"
+                    });
+                    if (existingProduct == null)
+                    {//If the product doesn’t exist, show an error message.
+                        ModelState.AddModelError("", "Product Not Found");
+                        ViewBag.Ingredient = await ingredients.GetAllAsync();
+                        ViewBag.Categories = await categories.GetAllAsync();
+                        return View(product);
+                    }
+                    //Updates the product details with new values from the form.
+                    existingProduct.Name = product.Name;
+                    existingProduct.Description = product.Description;
+                    existingProduct.Price = product.Price;
+                    existingProduct.Stock = product.Stock;
+                    existingProduct.CategoryId = catId;
+
+                    //Removes old ingredients and adds the new selected ones.
+                    existingProduct.ProductIngredients?.Clear();
+                    foreach (int id in ingredientIds)
+                    {
+                        existingProduct.ProductIngredients?.Add(new ProductIngredient { IngredientId = id, ProductId = product.ProductId });
+                    }
+                    try
+                    {
+                        await products.UpdateAsync(existingProduct);
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", $"Erro:{ex.GetBaseException().Message}");
+                        ViewBag.Ingredient = await ingredients.GetAllAsync();
+                        ViewBag.Categories = await categories.GetAllAsync();
+                        return View(product);
+                    }
                 }
             }
-            else
+            return RedirectToAction("Index", "Product");
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
             {
-                return View(product);
+                await products.DeleteAsync(id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Product Not Found");
+                return RedirectToAction("Index");
             }
         }
 
