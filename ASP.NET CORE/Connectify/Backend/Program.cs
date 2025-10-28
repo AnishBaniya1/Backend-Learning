@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
 //Get JWT settings from .env
-var key = Environment.GetEnvironmentVariable("JWT__SecurityKey");
+var key = Environment.GetEnvironmentVariable("JWT_SecurityKey");
 
 //This registers controller support in the dependency injection (DI) container.
 //Without this, your app won’t know how to handle routes like /api/products.
@@ -75,7 +75,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();//Validates JWT tokens on incoming requests.
 app.UseAuthorization();//Checks if the authenticated user has permission to access the endpoint.
-
+app.UseStaticFiles();
 app.MapControllers();//map API routes
 app.Run();
 

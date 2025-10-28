@@ -31,3 +31,6 @@ publish/
 # Node Modules (if frontend is in same repo)
 node_modules/
 dist/
+
+# Ignore uploaded files
+wwwroot/uploads/
