@@ -1,6 +1,7 @@
 using System.Text;
 using Backend.Data;
 using Backend.Models;
+using Backend.Services;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
 //Get JWT settings from .env
-var key = Environment.GetEnvironmentVariable("JWT_SecurityKey");
+var key = Environment.GetEnvironmentVariable("JWT__SecurityKey");
 
 //This registers controller support in the dependency injection (DI) container.
 //Without this, your app won’t know how to handle routes like /api/products.
 builder.Services.AddControllers();
+
+//This loads all the value from .env file and can be used from IConfiguration
+builder.Configuration.AddEnvironmentVariables();
 
 
 //Configures Entity Framework to use SQL Server with a connection string called "DefaultConnection".
@@ -27,6 +31,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 //Sets up ASP.NET Core Identity (for user authentication/registration) and links it to your database (AppDbContext).
 builder.Services.AddIdentityCore<AppUser>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+//This allows you to inject TokenService anywhere (like in controllers).
+builder.Services.AddScoped<TokenService>();
 
 //This tells ASP.NET:
 //“Use JWT Bearer Tokens as the default method for authentication.”

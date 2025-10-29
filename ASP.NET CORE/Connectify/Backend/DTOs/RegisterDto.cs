@@ -1,8 +1,8 @@
 using System;
 
-namespace Backend.Models;
+namespace Backend.DTOs;
 
-public class Register
+public class RegisterDto
 {
     public string? FullName { get; set; }
     public string? Email { get; set; }

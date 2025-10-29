@@ -1,4 +1,5 @@
 using Backend.Common;
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Http;
@@ -30,16 +31,20 @@ namespace Backend.Controllers
         // updating accounts
         private readonly UserManager<AppUser> _userManager;
 
+        private readonly TokenService _tokenService;
+
         // ASP.NET injects UserManager automatically
-        public AccountController(UserManager<AppUser> userManager)
+        public AccountController(UserManager<AppUser> userManager, TokenService tokenService)
         {
             //you store it in _userManager to use later
             _userManager = userManager;
+            _tokenService = tokenService;
+
         }//This is constructor dependency injection.
 
-        [HttpPost]
+        [HttpPost("Register")]
         //Parameters are received from a FORM-DATA POST request (like Angular form submission)
-        public async Task<IActionResult> Register([FromForm] Register model)
+        public async Task<IActionResult> Register([FromForm] RegisterDto model)
         {
             //Searches database for a user with this email
             //Returns null if not found
@@ -85,7 +90,46 @@ namespace Backend.Controllers
             {
                 return BadRequest(Response<string>.Failure(result.Errors.Select(x => x.Description).FirstOrDefault()!));
             }
+            //if creation is successful
             return Ok(Response<string>.Success("", "User registered successfully."));
+        }
+
+        [HttpPost("Login")]
+        //This defines an API endpoint that receives a LoginDto object from the frontend.
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+            //Checks if the incoming data (the body of the request) is missing or invalid.
+            if (dto is null)
+            {
+                return BadRequest(Response<string>.Failure("Invalid Login Details"));
+            }
+
+            //Uses ASP.NET Identity’s UserManager to search for a user by email in the database.
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+
+            if (user == null)
+            {
+                //If no user exists → returns a “User Not Found” error.
+                return BadRequest(Response<string>.Failure("User Not Found"));
+            }
+
+            //This verifies the password the user entered against the hashed password stored in the database.
+            //You don’t manually hash passwords here — CheckPasswordAsync does it internally.
+            //ASP.NET Identity handles hashing and comparison automatically
+            var result = await _userManager.CheckPasswordAsync(user!, dto.Password);
+
+            if (!result)
+            {//If password check fails
+                return BadRequest(Response<string>.Failure("Invalid Password"));
+            }
+
+            //This calls your custom TokenService (which you wrote earlier).
+            //It generates a JWT (JSON Web Token) that includes:
+            //user.id
+            //user.username
+            var token = _tokenService.GenerateToken(user.Id, user.UserName!);
+
+            return Ok(Response<string>.Success(token, "Login Successfully"));
         }
     }
 }
