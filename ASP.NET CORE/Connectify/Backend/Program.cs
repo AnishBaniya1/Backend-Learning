@@ -14,8 +14,25 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
+// Register CORS (Cross-Origin Resource Sharing) service
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        // Allow requests coming from Angular's local development server
+        builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+        // Allow any HTTP header (like Authorization, Content-Type, etc.)
+         .AllowAnyHeader()
+         // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+         .AllowAnyMethod()
+         // Allow sending cookies or authorization headers across origins
+         .AllowCredentials();
+    });
+});
+
 //Get JWT settings from .env
 var key = Environment.GetEnvironmentVariable("JWT__SecurityKey");
+//var JwtSetting = builder.Configuration.GetSection("JWTSetting); 
 
 //This registers controller support in the dependency injection (DI) container.
 //Without this, your app won’t know how to handle routes like /api/products.
@@ -53,7 +70,29 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,//Ensures the token was signed with the correct secret key.
 
         //The actual key
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key!))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key!)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+
+    options.Events = new JwtBearerEvents
+    {
+        // This event fires whenever ASP.NET receives a request and looks for a JWT token.
+        OnMessageReceived = context =>
+        {
+            // Extract the "access_token" from the query string (used in SignalR).
+            var accessToken = context.Request.Query["access_token"];
+            // Get the request path (URL being accessed)
+            var path = context.HttpContext.Request.Path;
+            // Check if the token exists and the request is targeting the SignalR hub endpoint
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+            {
+                // Assign the token manually so ASP.NET can authenticate the SignalR connection
+                context.Token = accessToken;
+            }
+            // Complete the task (no async operation here)
+            return Task.CompletedTask;
+        }
     };
 });//This is how ASP.NET ensures only tokens you generate are accepted.
 
@@ -62,6 +101,32 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Connectify API", Description = "Chatting App", Version = "v1" });
+    // ✅ Tell Swagger about JWT Bearer tokens
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter 'Bearer' followed by your token. Example: Bearer eyJhbGciOi..."
+    });
+
+    // ✅ Apply it globally to all endpoints
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -78,6 +143,10 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Connectify API V1");
     });
 }
+// Enable CORS (Cross-Origin Resource Sharing) for incoming HTTP requests
+// This must be placed BEFORE app.UseAuthentication() and app.UseAuthorization()
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().
+WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseHttpsRedirection();
 app.UseAuthentication();//Validates JWT tokens on incoming requests.
