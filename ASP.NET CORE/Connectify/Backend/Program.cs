@@ -1,5 +1,6 @@
 using System.Text;
 using Backend.Data;
+using Backend.Hubs;
 using Backend.Models;
 using Backend.Services;
 using DotNetEnv;
@@ -109,7 +110,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' followed by your token. Example: Bearer eyJhbGciOi..."
+        Description = "Enter 'Bearer' followed by your token. Example: Bearer eyhij..."
     });
 
     // ✅ Apply it globally to all endpoints
@@ -128,9 +129,8 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -152,6 +152,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();//Validates JWT tokens on incoming requests.
 app.UseAuthorization();//Checks if the authenticated user has permission to access the endpoint.
 app.UseStaticFiles();
+app.MapHub<ChatHub>("hubs/chat");
 app.MapControllers();//map API routes
 app.Run();
 

@@ -1,10 +1,13 @@
 using Backend.Common;
 using Backend.DTOs;
+using Backend.Extensions;
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -130,6 +133,20 @@ namespace Backend.Controllers
             var token = _tokenService.GenerateToken(user.Id, user.UserName!);
 
             return Ok(Response<string>.Success(token, "Login Successfully"));
+        }
+
+        [HttpGet("GetUser")]
+        [Authorize]
+        //Fetch the current logged in user
+        public async Task<IActionResult> GetUser()
+        {
+            // 🔹 Get the currently logged-in user's ID from the JWT token (claims)
+            var currentLoggedInUserId = HttpContext.User.GetUserId()!;
+            // 🔹 Fetch the full user record from the database using the UserManager
+            //     - Finds the user whose Id matches the one from the token
+            var currentLoggedInUser = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == currentLoggedInUserId.ToString());
+            //return success
+            return Ok(Response<AppUser>.Success(currentLoggedInUser!, "User Fetched Succesfully"));
         }
     }
 }
