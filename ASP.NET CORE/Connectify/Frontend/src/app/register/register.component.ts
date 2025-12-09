@@ -8,12 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import{MatSnackBar} from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiResponse } from '../models/api-response';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-register',
-  imports: [MatFormFieldModule,FormsModule, MatIconModule, MatButtonModule, MatInputModule],
+  imports: [MatFormFieldModule, FormsModule, MatIconModule, MatButtonModule, MatInputModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
