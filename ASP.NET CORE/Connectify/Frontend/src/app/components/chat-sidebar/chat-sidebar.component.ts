@@ -29,5 +29,6 @@ router= inject(Router);
   }
   openChatWindow(user:User){
     this.chatService.currentOpenedChat.set(user);
+    this.chatService.loadMessages(1);
   }
 }
