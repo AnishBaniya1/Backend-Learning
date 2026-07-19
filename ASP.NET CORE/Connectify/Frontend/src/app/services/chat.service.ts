@@ -14,6 +14,7 @@ onlineUsers=signal<User[]>([]);
 currentOpenedChat = signal<User|null>(null);
 chatMessages= signal<Message[]>([]);
 isLoading= signal<boolean>(true);
+autoScrollEnabled = signal<boolean>(true);
 
  private hubConnection?:HubConnection;
 
@@ -69,9 +70,10 @@ isLoading= signal<boolean>(true);
 
   
 
- this.hubConnection!.on("ReceiveMessageList",(message)=>{
-  this.chatMessages.update(messages=>[...message,...messages])
-  this.isLoading.update(()=>false)
+ this.hubConnection!.on("ReceiveMessageList",(newMessages: Message[])=>{
+  this.isLoading.update(()=>true);
+  this.chatMessages.update(messages=>[...newMessages, ...messages]);
+  this.isLoading.update(()=>false);
  });
 
  this.hubConnection!.on('ReceiveNewMessage',(message:Message)=>{
@@ -124,8 +126,12 @@ isUserOnline():string{
 }
 
 loadMessages(pageNumber: number){
+  this.isLoading.update(()=>true);
   this.hubConnection?.invoke("LoadMessages", this.currentOpenedChat()?.id,pageNumber)
-  .then().catch().finally(()=>{
+  .then(()=>{
+    console.log('Messages loaded for page', pageNumber);
+  }).catch((error)=>{
+    console.log('Error loading messages:', error);
     this.isLoading.update(()=>false);
   });
 }
