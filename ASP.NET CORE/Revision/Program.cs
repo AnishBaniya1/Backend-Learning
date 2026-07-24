@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Revision.Data;
+using Revision.IService;
+using Revision.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddControllers();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
